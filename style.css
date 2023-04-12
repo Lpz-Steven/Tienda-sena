@@ -152,6 +152,7 @@ header{
 
 /*banner*/
 .second-content{
+    margin-top: 50px;
     background-color: #33badc;
     border-radius: 20px;
     height: 170px;
@@ -159,17 +160,39 @@ header{
     justify-content: space-around;
 }
 .second-content img{
-    width: auto;
-    height: 200px;
-    margin-top: -30px;
+    width: 250px;
+    height: 300px;
+    object-fit: contain;
+    margin-top: -80px;
+    margin-left: -30px;
 }
 .infoBanner{
-    margin: 10px;
+    margin: 7px 0;
 }
 .second-content {
     color: #ffffff;
     font-size: 1.1rem;
-    margin: 40px 0;
+}
+
+/*admind*/
+
+.second-content2{
+    margin-top: 50px;
+    background-color: #ddb892;
+    height: 170px;
+    display: flex;
+    justify-content: space-around;
+    border-radius: 20px;
+}
+
+.second-content2 img{
+    width: 200px;
+    height: 220px;
+    margin-top: -50px;
+}
+
+.infoBanner2{
+    padding: 20px;
 }
 
 /*categorias*/
@@ -277,13 +300,34 @@ header{
 .shop-content{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    
     width: 100%;
-    gap: 1.5rem;
+    gap: 1rem;
+}
+
+@media(max-width:500px ){
+    .shop-content{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2px;
+    }
+    .product-title{
+        font-size: 1rem;
+    }
+    .add-cart{
+        margin-right: 20px;
+        background-color: #33badc;
+        font-size: .8rem;
+        text-align: center;
+        border-radius: 10px;
+    }
+    .product-box label{
+        width: 60px;
+        padding: 10px;
+    }
 }
 .product-box{
     position: relative;
-    
+    margin-bottom: 20px;
 }
 .product-img{
     width: 90%;
@@ -311,6 +355,31 @@ header{
     height: 40px;
     
 }
+
+/*admin*/
+.info-div{
+    display: flex;
+    justify-content: space-around;
+    width: 90%;
+}
+.btnModal{
+    background-color:#ddb892;
+    border-radius: 10px;
+}
+.inputs-modal{
+    height: 25px;
+    width: 80%;
+    margin-top: 5px;
+    font-size: 1.2rem;
+    border: none;
+}
+#close-cart{
+   width: 100px;
+   height: 30px;
+    background-color: white;
+    border-radius: 20px;
+}
+
 /*modal*/
 
 .modal{
@@ -322,7 +391,7 @@ header{
     background-color: #33badc;
     z-index: 100;
     transform: translate(0,-110%);
-    transition: transform .10s ease ;
+    transition: transform .5s ease ;
     box-shadow: 2px 2px 4px 4px #5959595b;
     border-radius: 40px;
 }
@@ -366,4 +435,9 @@ header{
     padding: 10px;
     background-color: #33badc;
     border-radius: 10px;
+}
+.imageModal{
+    object-fit: contain;
+    width: 10px;
+    
 }

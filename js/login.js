@@ -8,8 +8,17 @@ loginForm.addEventListener('submit', (e)=>{
     const password=d.querySelector('#password').value
     const Users=JSON.parse(localStorage.getItem('users')) ||[]
     const validUser= Users.find(user=>user.email === email && user.password === password)
+
+    emailAdmin="admin@gmail.com"
+    passwordAdmin = "1234"
+    
     if(!validUser){
         return alert('usuario y/o contraseña incorrectos')
     }
-    window.location.href='index.html'
+    
+    window.location.href='home.html'
+
+    if(email == `${emailAdmin}` && password == `${passwordAdmin}` ){
+        window.location.href='admin.html'
+    }
 })

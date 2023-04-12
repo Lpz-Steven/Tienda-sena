@@ -31,11 +31,11 @@ d.addEventListener("DOMContentLoaded", e=>{
             console.log(precio)
 
             const target =`
-            <div class="product-box">
+            <div class="product-box" >
                     <img src="${imagen}" class="product-img" />
                     <h2 class="product-title">${name}</h2>
                     <span class="price">${precio}</span>
-                    <label for="btn-modal" name='shopping-bag' id="cart-icon2" class="add-cart" data-id="${id}" data-img="${imagen}"> Comprar </label>
+                    <label for="btn-modal" name='shopping-bag' id="cart-icon2" class="add-cart" data-id="${id}" data-img="${imagen}">Buy</label>
             </div>
             `
             document.getElementById('content-products').innerHTML += target
