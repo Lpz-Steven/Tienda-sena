@@ -142,11 +142,14 @@ header{
     margin-top: 100px;
 }
 .buscador input{
-    width: 80%;
+    width: 95%;
     height: 40px;
     border-radius: 10px;
     border: none;
     padding: 10px;
+}
+.notShow{
+    display: none;
 }
 
 
@@ -161,9 +164,9 @@ header{
 }
 .second-content img{
     width: 250px;
-    height: 300px;
+    height: 200px;
     object-fit: contain;
-    margin-top: -80px;
+    margin-top: -30px;
     margin-left: -30px;
 }
 .infoBanner{
