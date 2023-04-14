@@ -448,3 +448,11 @@ header{
     width: 10px;
     
 }
+
+/*contenedor codigo QR*/
+
+.contenedorQR{
+    display: flex;
+    justify-content: center;
+    padding: 40px 0;
+}

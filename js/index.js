@@ -5,6 +5,8 @@ const d = document
 const $modal= d.querySelector(".modal")
 const $carrito = d.querySelector(".cart-content")
 
+const $contenedorQR = document.getElementById('contenedorQR');
+
 
 let cart = d.querySelector('.cart')
 let closeCart = d.querySelector('.close-cart')
@@ -13,7 +15,6 @@ let closeCart = d.querySelector('.close-cart')
 
 
 d.addEventListener("DOMContentLoaded", e=>{
-    
     fetch("http://localhost:1337/api/productos?populate=*")
     .then(response=>response.json())
     .then(data=>{
@@ -99,6 +100,12 @@ d.addEventListener("click", async e=>{
         let totalPrice= d.getElementById("total-price")
         totalPrice.innerHTML=`${totalPrecio}`
     }
+    if(e.target.matches(".cart-remove")){
+    
+    }
+    if(e.target.matches(".btn-category")){
+        
+    }
 })
 
 d.addEventListener('keyup', e=>{
@@ -112,7 +119,7 @@ d.addEventListener('keyup', e=>{
 })
 
 
-
+new QRCode($contenedorQR, 'https://www.youtube.com/watch?v=G1G9D8A4Fiw&ab_channel=MANOWAR')
 
 
 

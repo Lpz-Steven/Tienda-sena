@@ -27,7 +27,7 @@ d.addEventListener("DOMContentLoaded", e=>{
             console.log(cantidad)
 
             const target =`
-            <div class="product-box">
+            <div class="product-box content estilos">
                     <img src="${imagen}" class="product-img" />
                     <div class="info-div">
                       <div>
@@ -117,4 +117,12 @@ d.addEventListener("click", async e=>{
         }
 
 })
-
+d.addEventListener('keyup', e=>{
+  if(e.target.matches('#buscador')){
+      document.querySelectorAll('.content').forEach(product=>{
+          product.textContent.toLowerCase().includes(e.target.value)
+          ? product.classList.remove('notShow')
+          : product.classList.add('notShow')
+      })
+  }
+})
