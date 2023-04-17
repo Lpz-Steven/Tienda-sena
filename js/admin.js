@@ -5,7 +5,7 @@ const $modal= d.querySelector(".modal")
 
 d.addEventListener("DOMContentLoaded", e=>{
     
-    fetch("http://localhost:1337/api/productos?populate=*")
+    fetch("http://192.168.1.3:1337/api/productos?populate=*")
     .then(response=>response.json())
     .then(data=>{
         const arregloP=data.data
@@ -32,7 +32,7 @@ d.addEventListener("DOMContentLoaded", e=>{
                     <div class="info-div">
                       <div>
                         <h2 class="product-title">${name}</h2>
-                        <span class="price">${precio}</span>
+                        <span class="price">${precio} $</span>
                       </div>
                       <label for="btn-modal"  id="cart-icon2" class="btnModal" class="add-cart" data-id="${id}" data-img="${imagen}"><i class="fa-solid fa-pen-to-square"></i></label>
                     </div>
@@ -53,7 +53,7 @@ d.addEventListener("click", async e=>{
         let btnId= e.target.dataset.id;
         console.log(btnId)
 
-        await fetch(`http://localhost:1337/api/productos/${btnId}`)
+        await fetch(`http://192.168.1.3:1337/api/productos/${btnId}`)
         .then(res=> res.ok ? res.json(): Promise.reject(res))
         .then(json =>{
             $modal.innerHTML=Modal(json)
@@ -80,7 +80,7 @@ d.addEventListener("click", async e=>{
           };
 
 
-          const res = await fetch(`http://localhost:1337/api/productos/${e.target.dataset.id}`, options);
+          const res = await fetch(`http://192.168.1.3:1337/api/productos/${e.target.dataset.id}`, options);
           console.log(JSON.stringify(data))
           if (!res.ok) {
             throw new Error(`HTTP error! status: ${res.status}`);
@@ -104,7 +104,7 @@ d.addEventListener("click", async e=>{
             "Content-type": "application/json; charset=utf-8"
             }
         }
-            res=await fetch(`http://localhost:1337/api/productos/${e.target.dataset.id}`, options)
+            res=await fetch(`http://192.168.1.3:1337/api/productos/${e.target.dataset.id}`, options)
             json=await res.json();
         }catch{
         }

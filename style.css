@@ -3,6 +3,13 @@
     padding: 0;
     margin: 0;
 }
+
+:root{
+    --colorPrincipal:#31572c;
+    --colorSecundario:#4f772d;
+    --colorTerciario:#90a955;
+}
+
 body{
     background-color: #e5e6e5;
     font-family: sans-serif;
@@ -27,6 +34,7 @@ header{
     align-items: center;
     justify-content: space-between;
     padding: 20px ;
+    margin: 0 auto;
 }
 .container{
     max-width: 1068px;
@@ -66,7 +74,9 @@ header{
 }
 
 /*Carrito*/
-
+.cart{
+    width: 100%;
+}
 .cart-box{
     display: grid;
     grid-template-columns: 32% 50% 18%;
@@ -120,7 +130,7 @@ header{
     margin: 1.5rem auto 0 auto;
     padding: 12px 20px;
     border: none;
-    background: #33badc;
+    background: var(--colorSecundario);
     color: white;
     font-size: 1rem;
     font-weight: 500;
@@ -156,7 +166,7 @@ header{
 /*banner*/
 .second-content{
     margin-top: 50px;
-    background-color: #33badc;
+    background-color: var(--colorPrincipal);
     border-radius: 20px;
     height: 170px;
     display: flex;
@@ -185,11 +195,12 @@ header{
 
 .second-content2{
     margin-top: 50px;
-    background-color: #ddb892;
+    background-color: var(--colorPrincipal);
     height: 170px;
     display: flex;
     justify-content: space-around;
     border-radius: 20px;
+    color: white;
 }
 
 .second-content2 img{
@@ -213,6 +224,13 @@ header{
 
 
 /*log in*/
+.body-login{
+    background-image:url("img/fondo.jpg");
+    background-size: cover cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
 #loginForm{
     width: 100%;
     max-width: 40vh;
@@ -232,36 +250,46 @@ header{
     font-size: 1.8rem;
     font-family: sans-serif;
     font-weight: 200;
+    color: black;
 }
-
+.divForm {
+    color: white;
+    margin-top: 40px;
+}
+.parrafo-logout{
+    color: black;
+    margin-top: 40px;
+}
 .inputs{
     display: block;
     width: 95%;
     height: 50px;
     margin: 40px 10px;
-    border-radius: 50px;
-    border-color: #4ca2ed;
+    border-radius: 20px;
+    border: none;
     padding: 20px;
 }
+
 
 #submit{
    padding: 15px;
    border-radius: 50px;
    width: 120px;
-   background: linear-gradient(90deg, #6dc9e7 0%, #4ca2ed 50%, #2672cf 100%);
+   background: linear-gradient(90deg, #31572c 0%, #4f772d 50%, #90a955 100%);
    border: none;
    color: white;   
 
 }
-.divForm p{
-    position: absolute;
-    bottom: 100px;
-    font-size: 1.2rem;
-    font-family: sans-serif;
-    margin: 0 20px;
-}
+
+   
 
 /*register*/
+.body-logout{
+    background-image:url("img/fondo.jpg");
+    background-size: cover cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
 #signupForm{
     max-width: max(40vw, 420px);
     width: 100%;
@@ -272,9 +300,8 @@ header{
     margin: 30px auto;
     height: 50px;
     width: 95%;
-    border: 1px solid #3a3a3a;
-    border-radius: 50px;
-    border-color: #4ca2ed;
+    border: none;
+    border-radius: 20px;
     padding: 20px;
 }
 
@@ -288,14 +315,16 @@ header{
     margin: 0 auto;
     border: none;
     color: white;
-    background: linear-gradient(90deg, #6dc9e7 0%, #4ca2ed 50%, #2672cf 100%);
+    background: linear-gradient(90deg, #31572c 0%, #4f772d 50%, #90a955 100%);
 }
 .btn:hover{
     cursor: pointer;
     filter: grayscale(.2);
 }
-.divForm p{
+.parrafo-login{
     text-align: center;
+    margin-top: 40px;
+    color: black;
 }
 
 /*products*/
@@ -322,7 +351,7 @@ header{
     }
     .add-cart{
         margin-right: 20px;
-        background-color: #33badc;
+        background-color: #90a955;
         font-size: .8rem;
         text-align: center;
         border-radius: 10px;
@@ -341,7 +370,7 @@ header{
     height: 300px;
     object-fit: contain;
     margin-bottom: 0.5rem;
-    background-color: #33badc;
+    background-color: #4f772d;
     border-radius: 20px;
 }
 .pruduct-title{
@@ -370,7 +399,7 @@ header{
     width: 90%;
 }
 .btnModal{
-    background-color:#ddb892;
+    background-color:var(--colorSecundario);
     border-radius: 10px;
 }
 .inputs-modal{
@@ -383,8 +412,9 @@ header{
 #close-cart{
    width: 100px;
    height: 30px;
-    background-color: white;
+   background-color: white;
     border-radius: 20px;
+    z-index: 200;
 }
 
 /*modal*/
@@ -395,7 +425,7 @@ header{
     bottom: 0;
     height: 100vh;
     min-width: 350px;
-    background-color: #33badc;
+    background-color: #cacccc;
     z-index: 100;
     transform: translate(0,-110%);
     transition: transform .5s ease ;
@@ -440,7 +470,7 @@ header{
 }
 .shopDiv buttom{
     padding: 10px;
-    background-color: #33badc;
+    background-color: var(--colorSecundario);
     border-radius: 10px;
 }
 .imageModal{
@@ -450,9 +480,14 @@ header{
 }
 
 /*contenedor codigo QR*/
-
-.contenedorQR{
+.cont-codigo{
     display: flex;
+    flex-direction: column;
+    text-align: center;
     justify-content: center;
-    padding: 40px 0;
+    margin-top: 40px;
 }
+.contenedorQR{
+    margin: 10px;
+}
+
