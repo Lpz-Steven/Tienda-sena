@@ -76,6 +76,7 @@ header{
 /*Carrito*/
 .cart{
     width: 100%;
+    overflow-y: scroll;
 }
 .cart-box{
     display: grid;
@@ -143,6 +144,10 @@ header{
     left: 0.8rem;
     font-size: 2rem;
     cursor: pointer;
+}
+.cart-content{
+    max-height: 45vh;
+    overflow: auto;
 }
 /*buscador*/
 
@@ -212,17 +217,13 @@ header{
 .infoBanner2{
     padding: 20px;
 }
-
 /*categorias*/
-
 .categories button{
     padding: 10px;
     border-radius:10px;
     border: none;
     background-color: #cacccc;
 }
-
-
 /*log in*/
 .body-login{
     background-image:url("img/fondo.jpg");
@@ -269,8 +270,6 @@ header{
     border: none;
     padding: 20px;
 }
-
-
 #submit{
    padding: 15px;
    border-radius: 50px;
@@ -280,9 +279,6 @@ header{
    color: white;   
 
 }
-
-   
-
 /*register*/
 .body-logout{
     background-image:url("img/fondo.jpg");
@@ -294,7 +290,6 @@ header{
     max-width: max(40vw, 420px);
     width: 100%;
 }
-
 #signupForm input{
     display: block;
     margin: 30px auto;
@@ -304,8 +299,6 @@ header{
     border-radius: 20px;
     padding: 20px;
 }
-
-
 .btn{
     border-radius: 50px;
     font-weight: 700;
@@ -326,20 +319,17 @@ header{
     margin-top: 40px;
     color: black;
 }
-
 /*products*/
 .shop-container{
     display: flex;
     justify-content: center;
 }
-
 .shop-content{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     width: 100%;
     gap: 1rem;
 }
-
 @media(max-width:500px ){
     .shop-content{
         display: grid;
@@ -391,7 +381,6 @@ header{
     height: 40px;
     
 }
-
 /*admin*/
 .info-div{
     display: flex;
@@ -416,9 +405,7 @@ header{
     border-radius: 20px;
     z-index: 200;
 }
-
 /*modal*/
-
 .modal{
     position: fixed;
     top: 20px;
@@ -432,7 +419,6 @@ header{
     box-shadow: 2px 2px 4px 4px #5959595b;
     border-radius: 40px;
 }
-
 .showModal{
     transform: translate(0,0);
 }
@@ -448,8 +434,6 @@ header{
     height: 350px;
     object-fit: cover;
 }
-
-
 .infoDiv{
     background-color: #ffffff;
     height: 50vh;
@@ -478,7 +462,6 @@ header{
     width: 10px;
     
 }
-
 /*contenedor codigo QR*/
 .cont-codigo{
     display: flex;
@@ -490,4 +473,5 @@ header{
 .contenedorQR{
     margin: 10px;
 }
+
 

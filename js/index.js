@@ -5,9 +5,13 @@ const d = document
 const $modal= d.querySelector(".modal")
 const $carrito = d.querySelector(".cart-content")
 
+console.log($carrito)
+
 let qrdiv= document.getElementById('contenedorQR')
 let btnConvertir = d.getElementById('convertir')
 
+let correctProduct=[]
+console.log(correctProduct)
 
 const qrcode = new QRCode(qrdiv,{
     width:200,
@@ -24,6 +28,7 @@ d.addEventListener("DOMContentLoaded", e=>{
     .then(data=>{
         const arregloP=data.data
         console.log(arregloP)
+
         arregloP.map((element)=>{
             let id=element.id
             console.log(id)
@@ -52,6 +57,8 @@ d.addEventListener("DOMContentLoaded", e=>{
 
 const arrayCart = []
 
+
+
 d.addEventListener("click", async e=>{
     if(e.target.matches(".btnModal")){
         $modal.classList.toggle("showModal")
@@ -75,10 +82,12 @@ d.addEventListener("click", async e=>{
         cart.classList.remove('active')
     }
 
+
+
     if(e.target.matches(".add-cart")){
         let btnI = e.target.dataset.id;
         
-        await fetch(`http://192.168.1.3:1337/api/productos/${btnI}`)
+        await fetch(`http://localhost:1337/api/productos/${btnI}`)
         .then(res=> res.ok 
             ? res.json()
             : Promise.reject(res))
@@ -88,8 +97,18 @@ d.addEventListener("click", async e=>{
             const {target}=e
             arrayCart.push({data,target})
             console.log(json)
+            correctProduct.push(json)
         })
         .catch(err => console.log(err))
+    }
+
+    let cartBox = d.getElementById("cart-box")
+
+    if(e.target.matches(".cart-remove")){
+            let btnId = e.target.dataset.id;      
+            console.log(btnId)
+            cartBox.remove(btnId)
+        
     }
 
 
@@ -120,46 +139,12 @@ d.addEventListener("click", async e=>{
         
         console.log(arrayCart)
         
-        await fetch("http://192.168.1.3:1337/api/productos?populate=*")
-        .then(response =>response.json())
-        .then(data =>{
-            const arregloPDF=data.data
-            const doc = new jsPDF();
-            console.log(arregloPDF)
-
-            arregloPDF.map((element)=>{
-                let name= element.attributes.nombre
-                console.log(name)
-                let precio = element.attributes.precio
-                console.log(precio)
-
-                doc.text("Tienda SENA",80,20);
-                doc.text(name,10,40)
-                doc.save("a2.pdf")
-            })
-        })
 
         function codigoQR (){
             qrcode.makeCode(totalPrecio)
         }
         codigoQR()
 
-        
-        
-        /*let doc=new jsPDF();
-        doc.text("Tienda SENA",80,20);
-
-        let pageWidth =doc.internal.pageSize.width;
-        let endX=pageWidth-10;
-        doc.line(10,25,endX,25)
-
-        doc.text(`Nombre producto ${nombreP[0].textContent}`,10,40)
-        doc.text(`cantidad ${cantidadArr[0].value}`,10,50)   
-        doc.text(`precio unitario ${precioArr[0].textContent}`,10,60)
-
-        doc.line(10,70,endX,70)
-        doc.text(`precio total ${totalPrecio}` ,10,80);
-        doc.save("a2.pdf")*/
 
     }
     if(e.target.matches(".cart-remove")){

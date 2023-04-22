@@ -16,9 +16,9 @@ loginForm.addEventListener('submit', (e)=>{
         return alert('usuario y/o contraseña incorrectos')
     }
     
-    window.location.href='home.html'
+    window.location.href='__________home.html'
 
     if(email == `${emailAdmin}` && password == `${passwordAdmin}` ){
-        window.location.href='admin.html'
+        window.location.href='__________admin.html'
     }
 })
