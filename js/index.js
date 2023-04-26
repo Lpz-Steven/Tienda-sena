@@ -36,18 +36,18 @@ d.addEventListener("DOMContentLoaded", e=>{
             let name= element.attributes.nombre
             console.log(name)
 
-            let imagen= element.attributes.image.data[0].attributes.url
-            console.log(imagen)
-
             let precio = element.attributes.precio
             console.log(precio)
 
+            let srcimg= element.attributes.srcimage
+            console.log(srcimg)
+
             const target =`
             <div class="product-box content estilos" >
-                    <img src="${imagen}" class="product-img" />
+                    <img src="${srcimg}" class="product-img" />
                     <h2 class="product-title">${name}</h2>
                     <span class="price">${precio} $</span>
-                    <label for="btn-modal" name='shopping-bag' id="cart-icon2" class="add-cart" data-id="${id}" data-img="${imagen}">Buy</label>
+                    <label for="btn-modal" name='shopping-bag' id="cart-icon2" class="add-cart" data-id="${id}" data-img="${srcimg}">Buy</label>
             </div>
             `
             document.getElementById('content-products').innerHTML += target
@@ -87,7 +87,7 @@ d.addEventListener("click", async e=>{
     if(e.target.matches(".add-cart")){
         let btnI = e.target.dataset.id;
         
-        await fetch(`http://localhost:1337/api/productos/${btnI}`)
+        await fetch(`http://192.168.1.3:1337/api/productos/${btnI}`)
         .then(res=> res.ok 
             ? res.json()
             : Promise.reject(res))
@@ -95,7 +95,7 @@ d.addEventListener("click", async e=>{
             $carrito.innerHTML += carrito(json, e.target)
             const {data}=json
             const {target}=e
-            arrayCart.push({data,target})
+            arrayCart.push({data})
             console.log(json)
             correctProduct.push(json)
         })
@@ -110,8 +110,6 @@ d.addEventListener("click", async e=>{
             cartBox.remove(btnId)
         
     }
-
-
 
     if(e.target.matches(".btn-buy")){
         let btnCantidad = d.querySelectorAll(".cart-quantity")
@@ -135,24 +133,32 @@ d.addEventListener("click", async e=>{
         let totalPrice= d.getElementById("total-price")
         totalPrice.innerHTML=`${totalPrecio}`
 
-
-        
         console.log(arrayCart)
-        
 
-        function codigoQR (){
-            qrcode.makeCode(totalPrecio)
+        const qr = new QRCode(d.getElementById("contenedorQR"),{
+            Text:"Hola",
+            width:150,
+            height:150,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        })
+
+        function codigoQR(){
+            arrayCart.forEach(element=>console.log(element))
+            qr.makeCode(`${arrayCart[0].data.attributes.nombre},`)
         }
-        codigoQR()
+        codigoQR();
 
-
-    }
-    if(e.target.matches(".cart-remove")){
+        console.log(qr)
     
     }
+  
     if(e.target.matches(".btn-category")){
         
     }
+
+    
 })
 
 d.addEventListener('keyup', e=>{

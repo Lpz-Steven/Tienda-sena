@@ -3,6 +3,11 @@ import { Modal } from "./modal.js";
 const d = document
 const $modal= d.querySelector(".modal")
 
+let $inputCreate = d.querySelector(".input-img")
+let $imgCreate=d.querySelector(".img-create")
+console.log(($inputCreate).value)
+let $formCreate=d.querySelector(".formCreate")
+
 d.addEventListener("DOMContentLoaded", e=>{
     
     fetch("http://192.168.1.3:1337/api/productos?populate=*")
@@ -17,24 +22,27 @@ d.addEventListener("DOMContentLoaded", e=>{
             let name= element.attributes.nombre
             console.log(name)
 
-            let imagen= element.attributes.image.data[0].attributes.url
-            console.log(imagen)
-
             let precio = element.attributes.precio
             console.log(precio)
 
             let cantidad = element.attributes.cantidad
             console.log(cantidad)
 
+            let srcimg= element.attributes.srcimage
+            console.log(srcimg)
+
+            let description=element.attributes.description
+            console.log(description)
+
             const target =`
             <div class="product-box content estilos">
-                    <img src="${imagen}" class="product-img" />
+                    <img src="${srcimg}" class="product-img" />
                     <div class="info-div">
                       <div>
                         <h2 class="product-title">${name}</h2>
                         <span class="price">${precio} $</span>
                       </div>
-                      <label for="btn-modal"  id="cart-icon2" class="btnModal" class="add-cart" data-id="${id}" data-img="${imagen}"><i class="fa-solid fa-pen-to-square"></i></label>
+                      <label for="btn-modal"  id="cart-icon2" class="btnModal" class="add-cart" data-id="${id}" data-img="${srcimg}"><i class="fa-solid fa-pen-to-square"></i></label>
                     </div>
                     
             </div>
@@ -116,6 +124,47 @@ d.addEventListener("click", async e=>{
           $modal.classList.remove("showModal")
         }
 
+        let $cart = d.getElementById("cart")
+
+        if(e.target.matches(".flutter-icon")){
+          $cart.classList.toggle('active')
+       }
+       if(e.target.matches("#close-cart")){
+          $cart.classList.remove('active')
+      }
+
+      if (e.target.matches(".btn-create")){
+        e.preventDefault();
+        try{
+          let data ={
+            data:{
+              srcimage:$formCreate.images.value,
+              nombre:$formCreate.nombre.value,
+              precio:parseFloat($formCreate.price.value),
+              description:$formCreate.description.value
+            }
+            }
+          const options={
+            method:"POST",
+            headers:{
+              "Content-type": "application/json; charset=utf-8"
+            },
+            body: JSON.stringify(data)
+          },
+          res=await fetch(`http://192.168.1.3:1337/api/productos/`,options);
+          json=await res.json();
+
+          if(!res.ok)throw{status:res.status,statusText:res.statusText};
+
+        }catch (error){
+          let message= error.statusText|| "Ocurrio un error";
+          console.log(message)
+        }
+        location.reload();
+
+      }
+
+
 })
 d.addEventListener('keyup', e=>{
   if(e.target.matches('#buscador')){
@@ -125,4 +174,7 @@ d.addEventListener('keyup', e=>{
           : product.classList.add('notShow')
       })
   }
+
 })
+
+
