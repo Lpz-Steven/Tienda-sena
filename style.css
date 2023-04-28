@@ -196,7 +196,7 @@ header{
     font-size: 1.1rem;
 }
 
-/*admind*/
+/*admin*/
 
 .second-content2{
     margin-top: 50px;
@@ -223,6 +223,8 @@ header{
     border-radius:10px;
     border: none;
     background-color: #cacccc;
+    margin-top: 10px;
+    margin-left: 2px;
 }
 /*log in*/
 .body-login{
@@ -364,7 +366,7 @@ header{
     border-radius: 20px;
 }
 .pruduct-title{
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: 600;
     text-transform: uppercase;
     margin-bottom: 0.5rem;
@@ -384,7 +386,7 @@ header{
 /*admin*/
 .info-div{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     width: 90%;
 }
 .btnModal{
@@ -491,4 +493,47 @@ header{
     margin-bottom: 0.5rem;
     background-color: #4f772d;
     border-radius: 20px;
+}
+.formCreate{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+.formCreate input{
+    height: 50px;
+    margin: 10px;
+    padding: 10px;
+}
+.btn-create{
+    margin-top: 20px;
+    background-color: var(--colorPrincipal);
+    height: 50px;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2rem;
+}
+
+.notShowBtn{
+    display: none;
+}
+.formCategory{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.formCategory input{
+    height: 50px;
+    margin: 10px;
+    padding: 10px;
+}
+.btn-create-category{
+    margin-top: 20px;
+    background-color: var(--colorPrincipal);
+    height: 50px;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2rem;
 }

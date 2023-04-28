@@ -17,13 +17,19 @@
                 <a href="#" class="logo"> Administrador</a>
                 <box-icon type='logo' name='flutter' class="flutter-icon"></box-icon>
                 <div class="cart" id="cart">
-                    <h2 class="cart-title">Crear</h2>
+                    <h2 class="cart-title">Crear Producto</h2>
                     <form action="" class="formCreate">
                         <input type="text" name="images" class="input-img" id="input-img" placeholder="Imagen Producto">
                         <input type="text" name="nombre" class="input-title" id="input-title" placeholder="Nombre Producto">
                         <input type="text" name="price" class="input-precio" id="input-precio" placeholder="Precio Producto">
                         <input type="text" name="description" class="input-description" id="input-description" placeholder="Descripcion">
+                        <input type="text" name="categorias" class="input-category" id="input-category" placeholder="Categoria Producto">
                     <button class="btn-create">Crear</button>
+                    </form>
+                    <h2 class="cart-title">Crear Categoria</h2>
+                    <form action="" class="formCategory">
+                        <input type="text" name="category" class="input-category" id="input-create-category" placeholder="Categoria">
+                        <button class="btn-create-category">Crear</button>
                     </form>
                     <box-icon name='arrow-back' id="close-cart"></box-icon>
                 </div>
@@ -45,12 +51,12 @@
             </div>
         </section>
         <section >
-            <div class="categories">
-                <button>Todo</button>
-                <button>lacteos</button>
-                <button>Carnes</button>
-                <button>Verduras</button>
-                <button>Frutas</button>
+            <div class="categories" id="categories">
+                <button class="btn-category" data-category="all">Popular</button>
+                <button class="btn-category" data-category="lacteos">Lacteos</button>
+                <button class="btn-category" data-category="animal">Animal</button>
+                <button class="btn-category" data-category="verduras">Verduras</button>
+                <button class="btn-category" data-category="frutas">Frutas</button>
             </div>
         </section>
         <section class="shop-container">

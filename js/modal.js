@@ -12,7 +12,7 @@ export function Modal(props){
             </form>    
             <p>${data.attributes.description}<br></p>     
     
-            <div class="shopDiv">
+            <div class="shopDiv" id="shopDiv">
                 <buttom type="submit" class="edit" data-id="${data.id}" data-name="${data.attributes.nombre}" data-price="${data.attributes.precio}" data-cantidad="${data.attributes.cantidad}">Editar</buttom>
                 <buttom type="submit" class="delete" data-id="${data.id}" >Eliminar</buttom>
             </div>

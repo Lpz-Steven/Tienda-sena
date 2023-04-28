@@ -7,6 +7,7 @@ let $inputCreate = d.querySelector(".input-img")
 let $imgCreate=d.querySelector(".img-create")
 console.log(($inputCreate).value)
 let $formCreate=d.querySelector(".formCreate")
+let $contentCategories=d.getElementById("categories")
 
 d.addEventListener("DOMContentLoaded", e=>{
     
@@ -34,8 +35,11 @@ d.addEventListener("DOMContentLoaded", e=>{
             let description=element.attributes.description
             console.log(description)
 
+            let categoria = element.attributes.categoria;
+            console.log(categoria);
+
             const target =`
-            <div class="product-box content estilos">
+            <div class="product-box content estilos" data-category="${categoria}" >
                     <img src="${srcimg}" class="product-img" />
                     <div class="info-div">
                       <div>
@@ -44,7 +48,6 @@ d.addEventListener("DOMContentLoaded", e=>{
                       </div>
                       <label for="btn-modal"  id="cart-icon2" class="btnModal" class="add-cart" data-id="${id}" data-img="${srcimg}"><i class="fa-solid fa-pen-to-square"></i></label>
                     </div>
-                    
             </div>
             `
             document.getElementById('content-products').innerHTML += target
@@ -120,8 +123,9 @@ d.addEventListener("click", async e=>{
     
         }
         
+        
         if(e.target.matches(".close-btn")){
-          $modal.classList.remove("showModal")
+          $modal.classList.toggle("showModal")
         }
 
         let $cart = d.getElementById("cart")
@@ -141,7 +145,8 @@ d.addEventListener("click", async e=>{
               srcimage:$formCreate.images.value,
               nombre:$formCreate.nombre.value,
               precio:parseFloat($formCreate.price.value),
-              description:$formCreate.description.value
+              description:$formCreate.description.value,
+              categoria:$formCreate.categorias.value
             }
             }
           const options={
@@ -164,7 +169,64 @@ d.addEventListener("click", async e=>{
 
       }
 
+      if(e.target.matches(".btn-create-category")){
+        e.preventDefault();
 
+        let $inputCategory = d.getElementById("input-create-category")
+        let valueCategory= $inputCategory.value
+        console.log(valueCategory)
+
+        function createCategory (){
+          let btnCategory = document.createElement('button');
+          btnCategory.className='btn-category';
+          btnCategory.innerHTML=`${valueCategory}`;
+          btnCategory.dataset.category=`${valueCategory}`
+          $contentCategories.appendChild(btnCategory)
+
+        }
+        createCategory()
+        
+      }
+
+      // Seleccionar todos los elementos .content y guardarlos en una variable global
+      const contentElements = Array.from(document.querySelectorAll(".content"));
+      console.log(contentElements)
+
+      // Definir la función de filtrado
+      function filtrar(Data) {
+        contentElements.forEach((product) => {
+          if (Data === "all" || product.dataset.category === Data) {
+            product.classList.remove("notShow");
+          } else {
+            product.classList.add("notShow");
+          }
+        });
+      }
+
+      // Manejar el evento de clic en el botón
+      if (e.target.matches(".btn-category")) {
+        const Data = e.target.dataset.category;
+        console.log(Data);
+        filtrar(Data);
+        console.log(e.target.dataset.category);
+      }
+
+      /*if(e.target.matches(".btn-category")){
+        function filtrar(){
+            let Data = e.target.dataset.category
+            console.log(Data) 
+            let arr = Array.from(document.querySelectorAll('.content'))
+            let result =  arr.filter(product=>product.dataset.category === Data);
+            result.forEach(product => product.classList.remove('notShow'));
+            let resultnop =  arr.filter(product=>product.dataset.category !== Data);
+            resultnop.forEach(product => product.classList.add('notShow'));
+            console.log(e.target.dataset.category)
+            if(e.target.dataset.category === "all")  arr.forEach(product => product.classList.remove('notShow'))
+            return result
+        }
+        filtrar()
+        console.log(filtrar()) 
+    }*/
 })
 d.addEventListener('keyup', e=>{
   if(e.target.matches('#buscador')){
