@@ -5,13 +5,13 @@ const $modal= d.querySelector(".modal")
 
 let $inputCreate = d.querySelector(".input-img")
 let $imgCreate=d.querySelector(".img-create")
-console.log(($inputCreate).value)
+//console.log(($inputCreate).value)
 let $formCreate=d.querySelector(".formCreate")
 let $contentCategories=d.getElementById("categories")
 
 d.addEventListener("DOMContentLoaded", e=>{
     
-    fetch("http://192.168.1.3:1337/api/productos?populate=*")
+    fetch("http://10.190.80.165:1337/api/productos?populate=*")
     .then(response=>response.json())
     .then(data=>{
         const arregloP=data.data
@@ -58,13 +58,14 @@ d.addEventListener("DOMContentLoaded", e=>{
 
 d.addEventListener("click", async e=>{
     let $form=d.getElementById("form")
+
     if(e.target.matches(".btnModal")){
         $modal.classList.toggle("showModal")
 
         let btnId= e.target.dataset.id;
         console.log(btnId)
 
-        await fetch(`http://192.168.1.3:1337/api/productos/${btnId}`)
+        await fetch(`http://10.190.80.165:1337/api/productos/${btnId}`)
         .then(res=> res.ok ? res.json(): Promise.reject(res))
         .then(json =>{
             $modal.innerHTML=Modal(json)
@@ -91,7 +92,7 @@ d.addEventListener("click", async e=>{
           };
 
 
-          const res = await fetch(`http://192.168.1.3:1337/api/productos/${e.target.dataset.id}`, options);
+          const res = await fetch(`http://10.190.80.165:1337/api/productos/${e.target.dataset.id}`, options);
           console.log(JSON.stringify(data))
           if (!res.ok) {
             throw new Error(`HTTP error! status: ${res.status}`);
@@ -115,7 +116,7 @@ d.addEventListener("click", async e=>{
             "Content-type": "application/json; charset=utf-8"
             }
         }
-            res=await fetch(`http://192.168.1.3:1337/api/productos/${e.target.dataset.id}`, options)
+            res=await fetch(`http://10.190.80.165:1337/api/productos/${e.target.dataset.id}`, options)
             json=await res.json();
         }catch{
         }
@@ -156,7 +157,7 @@ d.addEventListener("click", async e=>{
             },
             body: JSON.stringify(data)
           },
-          res=await fetch(`http://192.168.1.3:1337/api/productos/`,options);
+          res=await fetch(`http://10.190.80.165:1337/api/productos/`,options);
           json=await res.json();
 
           if(!res.ok)throw{status:res.status,statusText:res.statusText};

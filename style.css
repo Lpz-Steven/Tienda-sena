@@ -51,6 +51,18 @@ header{
 #cart-icon{
     cursor: pointer;
     font-size: 1.8rem;
+    margin-right: 20px;
+}
+
+#contador{
+    margin-right: 20px;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    border-radius: 10px;
+    padding: 4px;
+    background-color: #020202;
+    color: white;
 }
 .cart{
     position: fixed;
@@ -347,6 +359,12 @@ header{
         font-size: .8rem;
         text-align: center;
         border-radius: 10px;
+       
+    }
+    .product-box button{
+        width: 60px;
+        padding: 10px;
+        
     }
     .product-box label{
         width: 60px;
