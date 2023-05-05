@@ -150,6 +150,10 @@ header{
     cursor: pointer;
     border-radius: 10px;
 }
+.btn-buy a{
+    color: white;
+    text-decoration: none;
+}
 #close-cart{
     position: absolute;
     top: 1rem;
@@ -230,6 +234,10 @@ header{
     padding: 20px;
 }
 /*categorias*/
+.categories{
+    overflow-x: auto;
+    white-space: nowrap
+}
 .categories button{
     padding: 10px;
     border-radius:10px;

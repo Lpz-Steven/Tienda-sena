@@ -7,11 +7,11 @@ let $inputCreate = d.querySelector(".input-img")
 let $imgCreate=d.querySelector(".img-create")
 //console.log(($inputCreate).value)
 let $formCreate=d.querySelector(".formCreate")
+let $formCategory =d.querySelector(".formCategory")
 let $contentCategories=d.getElementById("categories")
 
 d.addEventListener("DOMContentLoaded", e=>{
-    
-    fetch("http://10.190.80.165:1337/api/productos?populate=*")
+    fetch("http://192.168.1.3:1337/api/productos?populate=*")
     .then(response=>response.json())
     .then(data=>{
         const arregloP=data.data
@@ -38,8 +38,11 @@ d.addEventListener("DOMContentLoaded", e=>{
             let categoria = element.attributes.categoria;
             console.log(categoria);
 
+            let secondcategory = element.attributes.secondcategory;
+            console.log(secondcategory)
+
             const target =`
-            <div class="product-box content estilos" data-category="${categoria}" >
+            <div class="product-box content estilos" data-category="${categoria}" data-secondcategory="${secondcategory}">
                     <img src="${srcimg}" class="product-img" />
                     <div class="info-div">
                       <div>
@@ -53,6 +56,19 @@ d.addEventListener("DOMContentLoaded", e=>{
             document.getElementById('content-products').innerHTML += target
         })
     })
+    fetch("http://192.168.1.3:1337/api/categories")
+    .then(response=>response.json())
+    .then(data=>{
+      const arregloC=data.data
+        console.log(arregloC)
+        arregloC.map((element)=>{
+          let categoria =element.attributes.categoria;
+          console.log(categoria)
+          const target=`<button class="btn-category" data-category="${categoria}">${categoria}</button>`
+          document.getElementById('categories').innerHTML += target
+        })
+    })
+
 });
 
 
@@ -65,7 +81,7 @@ d.addEventListener("click", async e=>{
         let btnId= e.target.dataset.id;
         console.log(btnId)
 
-        await fetch(`http://10.190.80.165:1337/api/productos/${btnId}`)
+        await fetch(`http://192.168.1.3:1337/api/productos/${btnId}`)
         .then(res=> res.ok ? res.json(): Promise.reject(res))
         .then(json =>{
             $modal.innerHTML=Modal(json)
@@ -92,7 +108,7 @@ d.addEventListener("click", async e=>{
           };
 
 
-          const res = await fetch(`http://10.190.80.165:1337/api/productos/${e.target.dataset.id}`, options);
+          const res = await fetch(`http://192.168.1.3:1337/api/productos/${e.target.dataset.id}`, options);
           console.log(JSON.stringify(data))
           if (!res.ok) {
             throw new Error(`HTTP error! status: ${res.status}`);
@@ -116,7 +132,7 @@ d.addEventListener("click", async e=>{
             "Content-type": "application/json; charset=utf-8"
             }
         }
-            res=await fetch(`http://10.190.80.165:1337/api/productos/${e.target.dataset.id}`, options)
+            res=await fetch(`http://192.168.1.3:1337/api/productos/${e.target.dataset.id}`, options)
             json=await res.json();
         }catch{
         }
@@ -147,7 +163,8 @@ d.addEventListener("click", async e=>{
               nombre:$formCreate.nombre.value,
               precio:parseFloat($formCreate.price.value),
               description:$formCreate.description.value,
-              categoria:$formCreate.categorias.value
+              categoria:$formCreate.categorias.value,
+              secondcategory:$formCreate.secondcategoria.value,
             }
             }
           const options={
@@ -157,7 +174,7 @@ d.addEventListener("click", async e=>{
             },
             body: JSON.stringify(data)
           },
-          res=await fetch(`http://10.190.80.165:1337/api/productos/`,options);
+          res=await fetch(`http://192.168.1.3:1337/api/productos/`,options);
           json=await res.json();
 
           if(!res.ok)throw{status:res.status,statusText:res.statusText};
@@ -172,8 +189,32 @@ d.addEventListener("click", async e=>{
 
       if(e.target.matches(".btn-create-category")){
         e.preventDefault();
+        
+        try{
+          let data ={
+            data:{
+              categoria:$formCategory.category.value
+            }
+            }
+          const options={
+            method:"POST",
+            headers:{
+              "Content-type": "application/json; charset=utf-8"
+            },
+            body: JSON.stringify(data)
+          },
+          res=await fetch(`http://192.168.1.3:1337/api/categories/`,options);
+          json=await res.json();
 
-        let $inputCategory = d.getElementById("input-create-category")
+          if(!res.ok)throw{status:res.status,statusText:res.statusText};
+
+        }catch (error){
+          let message= error.statusText|| "Ocurrio un error";
+          console.log(message)
+        }
+        location.reload();
+
+        /*let $inputCategory = d.getElementById("input-create-category")
         let valueCategory= $inputCategory.value
         console.log(valueCategory)
 
@@ -185,7 +226,7 @@ d.addEventListener("click", async e=>{
           $contentCategories.appendChild(btnCategory)
 
         }
-        createCategory()
+        createCategory()*/
         
       }
 
@@ -196,7 +237,7 @@ d.addEventListener("click", async e=>{
       // Definir la función de filtrado
       function filtrar(Data) {
         contentElements.forEach((product) => {
-          if (Data === "all" || product.dataset.category === Data) {
+          if (Data === "all" || product.dataset.category === Data || product.dataset.secondcategory === Data) {
             product.classList.remove("notShow");
           } else {
             product.classList.add("notShow");

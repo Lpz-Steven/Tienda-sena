@@ -25,11 +25,11 @@ const valor =d.getElementById("contador")
 let contador = 0;
 
 d.addEventListener("DOMContentLoaded", (e) => {
-  fetch(`http://10.190.80.165:1337/api/productos?populate=*`)
+  fetch(`http://192.168.1.3:1337/api/productos?populate=*`)
     .then((response) => response.json())
     .then((data) => {
       const arregloP = data.data;
-      //console.log(arregloP);
+      console.log(arregloP);
 
       arregloP.map((element) => {
         let id = element.id;
@@ -46,8 +46,11 @@ d.addEventListener("DOMContentLoaded", (e) => {
         let categoria = element.attributes.categoria;
         //console.log(categoria);
 
+        let secondcategory = element.attributes.secondcategory;
+        console.log(secondcategory)
+
         const target = `
-            <div class="product-box content estilos" data-category="${categoria}" >
+            <div class="product-box content estilos" data-category="${categoria}" data-secondcategory="${secondcategory}">
                     <img src="${srcimg}" class="product-img" data-id="${id}" data-img="${srcimg}" />
                     <div class="info-div" id="info-div">
                         <div>
@@ -60,7 +63,20 @@ d.addEventListener("DOMContentLoaded", (e) => {
             `;
         document.getElementById("content-products").innerHTML += target;
       });
-    });
+    })
+
+    fetch("http://192.168.1.3:1337/api/categories")
+    .then(response=>response.json())
+    .then(data=>{
+      const arregloC=data.data
+        console.log(arregloC)
+        arregloC.map((element)=>{
+          let categoria =element.attributes.categoria;
+          console.log(categoria)
+          const target=`<button class="btn-category" data-category="${categoria}">${categoria}</button>`
+          document.getElementById('categories').innerHTML += target
+        })
+    })
 });
 
 const arrayCart = [];
@@ -72,7 +88,7 @@ d.addEventListener("click", async (e) => {
     let btnId = e.target.dataset.id;
     //console.log(btnId);
 
-    await fetch(`http://10.190.80.165:1337/api/productos/${btnId}`)
+    await fetch(`http://192.168.1.3:1337/api/productos/${btnId}`)
       .then((res) => (res.ok ? res.json() : Promise.reject(res)))
       .then((json) => {
         $modal.innerHTML = Modal(json);
@@ -86,7 +102,7 @@ d.addEventListener("click", async (e) => {
     let btnId = e.target.dataset.id;
     //console.log(btnId);
 
-    await fetch(`http://10.190.80.165:1337/api/productos/${btnId}`)
+    await fetch(`http://192.168.1.3:1337/api/productos/${btnId}`)
       .then((res) => (res.ok ? res.json() : Promise.reject(res)))
       .then((json) => {
         $modal.innerHTML = Modal(json);
@@ -117,7 +133,7 @@ d.addEventListener("click", async (e) => {
 
     let btnI = e.target.dataset.id;
 
-    await fetch(`http://10.190.80.165:1337/api/productos/${btnI}`)
+    await fetch(`http://192.168.1.3:1337/api/productos/${btnI}`)
       .then((res) => (res.ok ? res.json() : Promise.reject(res)))
       .then((json) => {
         $carrito.innerHTML += carrito(json, e.target);
@@ -191,9 +207,10 @@ d.addEventListener("click", async (e) => {
   // Definir la función de filtrado
   function filtrar(Data) {
     contentElements.forEach((product) => {
-      if (Data === "all" || product.dataset.category === Data) {
-        product.classList.remove("notShow");
-      } else {
+      if (Data === "all" || product.dataset.category === Data || product.dataset.secondcategory === Data) {
+        product.classList.remove("notShow")
+      }
+       else {
         product.classList.add("notShow");
       }
     });
