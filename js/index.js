@@ -1,6 +1,7 @@
 import { Modal } from "./modal.js";
 import { carrito } from "./carrito.js";
 
+
 const d = document;
 const $modal = d.querySelector(".modal");
 const $carrito = d.querySelector(".cart-content");
@@ -47,7 +48,7 @@ d.addEventListener("DOMContentLoaded", (e) => {
         //console.log(categoria);
 
         let secondcategory = element.attributes.secondcategory;
-        console.log(secondcategory)
+        //console.log(secondcategory)
 
         const target = `
             <div class="product-box content estilos" data-category="${categoria}" data-secondcategory="${secondcategory}">
@@ -69,10 +70,10 @@ d.addEventListener("DOMContentLoaded", (e) => {
     .then(response=>response.json())
     .then(data=>{
       const arregloC=data.data
-        console.log(arregloC)
+        //console.log(arregloC)
         arregloC.map((element)=>{
           let categoria =element.attributes.categoria;
-          console.log(categoria)
+          //console.log(categoria)
           const target=`<button class="btn-category" data-category="${categoria}">${categoria}</button>`
           document.getElementById('categories').innerHTML += target
         })
@@ -148,12 +149,61 @@ d.addEventListener("click", async (e) => {
 
   let cartBox = d.getElementById("cart-box");
 
+  if(e.target.matches(".btn-pdf")){
+
+    let doc = new jsPDF();
+    doc.setFontSize(20);
+    doc.text("Tienda CBA", 80, 20, { align: "center" });
+    doc.setFontSize(12);
+
+    doc.setFontSize(16);
+    let text = "Bienvenidos a Tienda CBA, nuestra tienda en línea donde encontrarás los mejores productos a los mejores precios. Ofrecemos una amplia variedad de productos de buena calidad, que se dividen en diferentes categorias como vegetales carnes entre muchas mas. ¡Gracias por elegirnos!";
+    let splitText = doc.splitTextToSize(text, 170);
+    doc.text(20, 30, splitText);
+
+    let btnCantidad = d.querySelectorAll(".cart-quantity");
+    let precio = d.querySelectorAll(".cart-price");
+    let nombreProduct = d.querySelectorAll(".cart-product-title");
+
+    let cantidadArr = Array.from(btnCantidad);
+    let precioArr = Array.from(precio);
+    let totalPrecio = 0;
+    let nombreP = Array.from(nombreProduct);
+    let cantidadProductos = cantidadArr.length;
+
+    doc.setFontSize(16);
+    doc.text("Nombre del producto", 20, 70);
+    doc.text("Cantidad", 100, 70);
+    doc.text("Valor U", 140, 70);
+    doc.setFontSize(16);
+
+    let startY = 80;
+    let currentY = startY;
+    nombreP.forEach((nombre, i) => {
+      doc.text(nombre.textContent, 20, currentY);
+      doc.text(cantidadArr[i].value, 100, currentY);
+      doc.text(precioArr[i].textContent, 140, currentY);
+      currentY += 10;
+    });
+
+    for (let i = 0; cantidadArr.length - 1 >= i; i++) {
+      totalPrecio += cantidadArr[i].value * precioArr[i].textContent;
+    }
+
+    let totalPrice = d.getElementById("total-price");
+    totalPrice.innerHTML = `${totalPrecio}`;
+
+    doc.setFontSize(16);
+    doc.text(`Total: $${totalPrecio}`, 120, currentY + 20, { align: "right" });
+
+    doc.save("compra.pdf");
+  }
+
   if (e.target.matches(".cart-remove")) {
     contador--;
     valor.innerHTML=contador;
 
     let btnId = e.target.dataset.id;
-    //console.log(btnId);
     cartBox.remove(btnId);
   }
 
@@ -167,44 +217,16 @@ d.addEventListener("click", async (e) => {
     let totalPrecio = 0;
     let nombreP = Array.from(nombreProduct);
 
-    //console.log(cantidadArr[0].value);
-    //console.log(precioArr[0].textContent);
-    //console.log(nombreP[0].textContent);
-
     for (let i = 0; cantidadArr.length - 1 >= i; i++) {
-      //console.log(i);
       totalPrecio += cantidadArr[i].value * precioArr[i].textContent;
     }
 
     let totalPrice = d.getElementById("total-price");
     totalPrice.innerHTML = `${totalPrecio}`;
-
-    //console.log(arrayCart);
-
-    const qr = new QRCode(d.getElementById("contenedorQR"), {
-      Text: "Hola",
-      width: 150,
-      height: 150,
-      colorDark: "#000000",
-      colorLight: "#ffffff",
-      correctLevel: QRCode.CorrectLevel.H,
-    });
-
-    function codigoQR() {
-      arrayCart.forEach((element) => console.log(element));
-      qr.makeCode(`${arrayCart[0].data.attributes.nombre},`);
-    }
-    codigoQR();
-
-    //console.log(qr);
   }
   
-
-  // Seleccionar todos los elementos .content y guardarlos en una variable global
   const contentElements = Array.from(document.querySelectorAll(".content"));
-  //console.log(contentElements)
 
-  // Definir la función de filtrado
   function filtrar(Data) {
     contentElements.forEach((product) => {
       if (Data === "all" || product.dataset.category === Data || product.dataset.secondcategory === Data) {
@@ -216,12 +238,10 @@ d.addEventListener("click", async (e) => {
     });
   }
 
-  // Manejar el evento de clic en el botón
   if (e.target.matches(".btn-category")) {
     const Data = e.target.dataset.category;
     //console.log(Data);
     filtrar(Data);
-    console.log(e.target.dataset.category);
   }
 });
 

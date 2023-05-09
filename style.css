@@ -98,8 +98,8 @@ header{
     margin-top: 1rem;
 }
 .cart-img{
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     object-fit: contain;
     padding: 10px;
 }
@@ -121,8 +121,6 @@ header{
     font-size: 1rem;
 }
 .cart-remove{
-    font-size: 24px;
-    color: #33badc;
     cursor: pointer;
 }
 .total{
@@ -150,6 +148,18 @@ header{
     cursor: pointer;
     border-radius: 10px;
 }
+.btn-pdf{
+    display: flex;
+    margin: 1.5rem auto 0 auto;
+    padding: 12px 20px;
+    border: none;
+    background: var(--colorSecundario);
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 10px;
+}
 .btn-buy a{
     color: white;
     text-decoration: none;
@@ -164,6 +174,7 @@ header{
 .cart-content{
     max-height: 45vh;
     overflow: auto;
+    font-size: 1.2rem;
 }
 /*buscador*/
 
@@ -491,17 +502,19 @@ header{
     
 }
 /*contenedor codigo QR*/
-.cont-codigo{
+
+.contenedorQR{
     display: flex;
     flex-direction: column;
     text-align: center;
     justify-content: center;
-    margin-top: 40px;
+    width: 150px;
+    margin: 0 auto;
+    margin-top: 20px;
 }
-.contenedorQR{
-    margin: 10px;
+.contenedorQR :first-child{
+    display: none;
 }
-
 /*create*/
 
 .img-create{

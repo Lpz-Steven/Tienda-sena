@@ -15,31 +15,31 @@ d.addEventListener("DOMContentLoaded", e=>{
     .then(response=>response.json())
     .then(data=>{
         const arregloP=data.data
-        console.log(arregloP)
+        //console.log(arregloP)
         arregloP.map((element)=>{
             let id=element.id
-            console.log(id)
+            //console.log(id)
             
             let name= element.attributes.nombre
-            console.log(name)
+            //console.log(name)
 
             let precio = element.attributes.precio
-            console.log(precio)
+            //console.log(precio)
 
             let cantidad = element.attributes.cantidad
-            console.log(cantidad)
+            //console.log(cantidad)
 
             let srcimg= element.attributes.srcimage
-            console.log(srcimg)
+            //console.log(srcimg)
 
             let description=element.attributes.description
-            console.log(description)
+            //console.log(description)
 
             let categoria = element.attributes.categoria;
-            console.log(categoria);
+            //console.log(categoria);
 
             let secondcategory = element.attributes.secondcategory;
-            console.log(secondcategory)
+           // console.log(secondcategory)
 
             const target =`
             <div class="product-box content estilos" data-category="${categoria}" data-secondcategory="${secondcategory}">
@@ -60,10 +60,10 @@ d.addEventListener("DOMContentLoaded", e=>{
     .then(response=>response.json())
     .then(data=>{
       const arregloC=data.data
-        console.log(arregloC)
+        //console.log(arregloC)
         arregloC.map((element)=>{
           let categoria =element.attributes.categoria;
-          console.log(categoria)
+          //console.log(categoria)
           const target=`<button class="btn-category" data-category="${categoria}">${categoria}</button>`
           document.getElementById('categories').innerHTML += target
         })
@@ -79,7 +79,7 @@ d.addEventListener("click", async e=>{
         $modal.classList.toggle("showModal")
 
         let btnId= e.target.dataset.id;
-        console.log(btnId)
+        //console.log(btnId)
 
         await fetch(`http://192.168.1.3:1337/api/productos/${btnId}`)
         .then(res=> res.ok ? res.json(): Promise.reject(res))
@@ -163,6 +163,7 @@ d.addEventListener("click", async e=>{
               nombre:$formCreate.nombre.value,
               precio:parseFloat($formCreate.price.value),
               description:$formCreate.description.value,
+              cantidad:$formCreate.quantity.value,
               categoria:$formCreate.categorias.value,
               secondcategory:$formCreate.secondcategoria.value,
             }
@@ -232,7 +233,7 @@ d.addEventListener("click", async e=>{
 
       // Seleccionar todos los elementos .content y guardarlos en una variable global
       const contentElements = Array.from(document.querySelectorAll(".content"));
-      console.log(contentElements)
+      //console.log(contentElements)
 
       // Definir la función de filtrado
       function filtrar(Data) {
@@ -248,9 +249,9 @@ d.addEventListener("click", async e=>{
       // Manejar el evento de clic en el botón
       if (e.target.matches(".btn-category")) {
         const Data = e.target.dataset.category;
-        console.log(Data);
+       //console.log(Data);
         filtrar(Data);
-        console.log(e.target.dataset.category);
+        //console.log(e.target.dataset.category);
       }
 
       /*if(e.target.matches(".btn-category")){
